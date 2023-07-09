@@ -6,7 +6,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily;
+namespace Rembrandt;
 
 use Attribute;
 

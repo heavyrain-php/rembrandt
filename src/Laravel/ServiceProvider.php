@@ -6,7 +6,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily\Laravel;
+namespace Rembrandt\Laravel;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 

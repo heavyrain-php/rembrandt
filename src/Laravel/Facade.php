@@ -6,15 +6,15 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily\Laravel;
+namespace Rembrandt\Laravel;
 
-use Airily\AirilyInterface;
+use Rembrandt\RembrandtInterface;
 use Illuminate\Support\Facades\Facade as BaseFacade;
 
 class Facade extends BaseFacade
 {
     protected static function getFacadeAccessor()
     {
-        return AirilyInterface::class;
+        return RembrandtInterface::class;
     }
 }

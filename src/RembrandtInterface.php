@@ -6,9 +6,9 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily;
+namespace Rembrandt;
 
-interface AirilyInterface
+interface RembrandtInterface
 {
     /**
      * Creates builder for specified Mapping

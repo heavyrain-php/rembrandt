@@ -6,11 +6,11 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily\Tests\Stubs;
+namespace Rembrandt\Tests\Stubs;
 
-use Airily\ColumnMapper;
-use Airily\Entity;
-use Airily\PrimaryKey;
+use Rembrandt\ColumnMapper;
+use Rembrandt\Entity;
+use Rembrandt\PrimaryKey;
 use JsonSerializable;
 
 #[Entity('users')]

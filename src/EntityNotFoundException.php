@@ -7,7 +7,7 @@ declare(strict_types=1);
  */
 
 
-namespace Airily;
+namespace Rembrandt;
 
 use RuntimeException;
 

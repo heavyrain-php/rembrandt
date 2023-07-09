@@ -1,6 +1,6 @@
-# Airily
+# Rembrandt
 
-Airily - Framework-agnostic Data Mapper ORM
+Rembrandt - Framework-agnostic Data Mapper ORM
 
 ## Prerequisites
 
@@ -9,7 +9,7 @@ Airily - Framework-agnostic Data Mapper ORM
 ## Installation
 
 ```sh
-$ composer require heavyrain/airily
+$ composer require heavyrain/rembrandt
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ $ composer require heavyrain/airily
 // app/Http/Controllers/IndexController.php
 namespace App\Http\Controllers;
 
-use Airily\Laravel\Facade as A;
+use Rembrandt\Laravel\Facade as A;
 
 class IndexController extends Controller
 {
@@ -34,7 +34,7 @@ class IndexController extends Controller
 // app/Domain/User.php
 namespace App\Domain;
 
-#[\Airily\Entity('users')]
+#[\Rembrandt\Entity('users')]
 class UserEntity implements \JsonSerializable
 {
     public function __construct(

@@ -6,9 +6,9 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily\Tests\Stubs;
+namespace Rembrandt\Tests\Stubs;
 
-use Airily\ObjectMapperInterface;
+use Rembrandt\ObjectMapperInterface;
 
 /**
  * @template T of SingleValueObject

@@ -6,7 +6,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily;
+namespace Rembrandt;
 
 /**
  * @template T of object

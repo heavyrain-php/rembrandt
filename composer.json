@@ -1,5 +1,5 @@
 {
-    "name": "heavyrain-php/airily",
+    "name": "heavyrain-php/rembrandt",
     "description": "Framework-agnostic Data Mapper ORM",
     "type": "library",
     "license": "MIT",
@@ -9,10 +9,10 @@
         "SQL",
         "Data Mapper"
     ],
-    "homepage": "https://github.com/heavyrain-php/airily/",
+    "homepage": "https://github.com/heavyrain-php/rembrandt/",
     "support": {
-        "issues": "https://github.com/heavyrain-php/airily/issues",
-        "source": "https://github.com/heavyrain-php/airily/"
+        "issues": "https://github.com/heavyrain-php/rembrandt/issues",
+        "source": "https://github.com/heavyrain-php/rembrandt/"
     },
     "authors": [
         {
@@ -35,7 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Airily\\": "src/"
+            "Rembrandt\\": "src/"
         },
         "exclude-from-classmap": [
             "**/*Test.php"
@@ -43,8 +43,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Airily\\": "src/",
-            "Airily\\Tests\\": "tests/"
+            "Rembrandt\\": "src/",
+            "Rembrandt\\Tests\\": "tests/"
         }
     },
     "scripts": {

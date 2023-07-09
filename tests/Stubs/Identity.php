@@ -6,7 +6,7 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Airily\Tests\Stubs;
+namespace Rembrandt\Tests\Stubs;
 
 use JsonSerializable;
 
