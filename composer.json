@@ -1,0 +1,63 @@
+{
+    "name": "heavyrain-php/airily",
+    "description": "Framework-agnostic Data Mapper ORM",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "ORM",
+        "Database",
+        "SQL",
+        "Data Mapper"
+    ],
+    "homepage": "https://github.com/heavyrain-php/airily/",
+    "support": {
+        "issues": "https://github.com/heavyrain-php/airily/issues",
+        "source": "https://github.com/heavyrain-php/airily/"
+    },
+    "authors": [
+        {
+            "name": "Masaru Yamagishi",
+            "email": "m-yamagishi@infiniteloop.co.jp"
+        }
+    ],
+    "prefer-stable": true,
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.21",
+        "phpunit/phpunit": "^10.2.3",
+        "vimeo/psalm": "^5.13"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Airily\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "**/*Test.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Airily\\": "src/",
+            "Airily\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "psalm": "psalm",
+        "cs": "php-cs-fixer fix src",
+        "test": "phpunit src tests",
+        "lint": [
+            "@psalm",
+            "@cs"
+        ],
+        "ci": [
+            "@lint",
+            "@test"
+        ]
+    }
+}
