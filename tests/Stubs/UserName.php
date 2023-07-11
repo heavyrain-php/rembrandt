@@ -11,7 +11,7 @@ namespace Rembrandt\Tests\Stubs;
 final class UserName extends SingleValueObject
 {
     public function __construct(
-        private string $name,
+        public readonly string $name,
     ) {
     }
 
@@ -20,15 +20,10 @@ final class UserName extends SingleValueObject
         return $this->name;
     }
 
-    public function getUserName(): string
-    {
-        return $this->name;
-    }
-
-    public function setUserName(string $newName): void
+    public function withNewUserName(string $newName): self
     {
         // validate $newName...
 
-        $this->name = $newName;
+        return new self($newName);
     }
 }

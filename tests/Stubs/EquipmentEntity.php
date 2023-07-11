@@ -12,7 +12,7 @@ use Rembrandt\Entity;
 use Rembrandt\PrimaryKey;
 use JsonSerializable;
 
-#[Entity('equipments')]
+#[Entity(table: 'equipments')]
 final class EquipmentEntity implements JsonSerializable
 {
     /**

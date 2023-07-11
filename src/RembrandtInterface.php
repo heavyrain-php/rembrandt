@@ -8,15 +8,18 @@ declare(strict_types=1);
 
 namespace Rembrandt;
 
+/**
+ * @template TCollection of object
+ */
 interface RembrandtInterface
 {
     /**
      * Creates builder for specified Mapping
-     * @template T of object
+     * @template TEntity of object
      * @param string $entityName
-     * @psalm-param class-string<T> $entityName
+     * @psalm-param class-string<TEntity> $entityName
      * @return BuilderInterface
-     * @psalm-return BuilderInterface<T>
+     * @psalm-return BuilderInterface<TEntity, TCollection>
      */
     public function of(string $entityName): BuilderInterface;
 }
