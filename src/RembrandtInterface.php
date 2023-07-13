@@ -18,8 +18,8 @@ interface RembrandtInterface
      * @template TEntity of object
      * @param string $entityName
      * @psalm-param class-string<TEntity> $entityName
-     * @return BuilderInterface
+     * @return QueryBuilderInterface
      * @psalm-return BuilderInterface<TEntity, TCollection>
      */
-    public function of(string $entityName): BuilderInterface;
+    public function of(string $entityName): QueryBuilderInterface;
 }

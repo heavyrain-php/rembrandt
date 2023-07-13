@@ -11,14 +11,14 @@ namespace Rembrandt\Laravel;
 use Rembrandt\RembrandtInterface;
 
 use Illuminate\Support\LazyCollection;
-use Rembrandt\BuilderInterface;
+use Rembrandt\QueryBuilderInterface;
 
 /**
  * @implements RembrandtInterface<LazyCollection>
  */
 final class Rembrandt implements RembrandtInterface
 {
-    public function of(string $entityName): BuilderInterface
+    public function of(string $entityName): QueryBuilderInterface
     {
 
     }

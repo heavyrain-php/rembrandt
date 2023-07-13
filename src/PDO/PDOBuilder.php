@@ -8,31 +8,30 @@ declare(strict_types=1);
 
 namespace Rembrandt\PDO;
 
+use InvalidArgumentException;
 use PDO;
-use Rembrandt\BuilderInterface;
+use Rembrandt\QueryBuilderInterface;
 use Rembrandt\BuildResult;
 use Rembrandt\EntityNotFoundException;
 use Rembrandt\Internal\ReflectionEntity;
-use Rembrandt\InvalidEntityDefinitionException;
+use Rembrandt\Internal\WhereQueryBuilderTrait;
 
 /**
  * @template TEntity of object
- * @implements BuilderInterface<TEntity, \Generator>
+ * @implements QueryBuilderInterface<TEntity, \Generator>
  */
-class PDOBuilder implements BuilderInterface
+class PDOBuilder implements QueryBuilderInterface
 {
-    private readonly ReflectionEntity $refEntity;
+    use WhereQueryBuilderTrait;
 
     /**
-     * @param string $entityName
-     * @psalm-param class-string<TEntity> $entityName
+     * @param ReflectionEntity<TEntity> $refEntity
      * @param PDO $pdo
      */
     public function __construct(
-        private readonly string $entityName,
+        private readonly ReflectionEntity $refEntity,
         private readonly PDO $pdo,
     ) {
-        $this->refEntity = new ReflectionEntity($this->entityName);
     }
 
     public function find(int|string|array $pks): object
@@ -48,17 +47,27 @@ class PDOBuilder implements BuilderInterface
 
     public function findOrNull(int|string|array $pks): ?object
     {
+        /** @var list<int|string> */
         $pkArray = \is_array($pks) ? $pks : [$pks];
+        if (\count($pkArray) !== \count($this->refEntity->getPrimaryKeys())) {
+            throw new InvalidArgumentException(\sprintf(
+                'PRIMARY KEY count is invalid. defined=%d param=%d',
+                \count($pkArray),
+                \count($this->refEntity->getPrimaryKeys()),
+            ));
+        }
+        foreach ($this->refEntity->getPrimaryKeys() as $index => $pk) {
+            /** @psalm-suppress MixedArrayTypeCoercion */
+            $this->whereEquals($pk, $pkArray[$index]);
+        }
+        $where = $this->buildWhereQuery();
         $stmt = $this->pdo->prepare(\sprintf(
             'SELECT * FROM `%s` WHERE %s',
             $this->refEntity->getTableName(),
-            $this->buildWhere($pkArray),
+            $where['sql'],
         ));
-        foreach ($pkArray as $index => $pk) {
-            $stmt->bindvalue($index + 1, $pk, \is_int($pk) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
-        }
 
-        $stmt->execute();
+        $stmt->execute($where['bindings']);
         /** @var array<array-key, mixed>|false */
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if ($result === false) {
@@ -71,23 +80,71 @@ class PDOBuilder implements BuilderInterface
 
     public function findAll(): BuildResult
     {
+        $stmt = $this->pdo->prepare(\sprintf(
+            'SELECT * FROM `%s`',
+            $this->refEntity->getTableName(),
+        ));
+
+        $stmt->execute();
         // TODO
+        return new BuildResult($stmt, null);
     }
 
-    private function buildWhere(array $pks): string
+    public function first(): object
     {
-        // TODO: Move it to driver-specific query builder
-        $pkNames = $this->refEntity->getPrimaryKeys();
 
-        if (\count($pkNames) !== \count($pks)) {
-            throw new InvalidEntityDefinitionException(\sprintf('Invalid PrimaryKey count expected=%d actual=%d', \count($pkNames), \count($pks)));
-        }
+    }
 
-        $wheres = [];
-        foreach ($pkNames as $column) {
-            $wheres[] = \sprintf('`%s` = ?', $column);
-        }
+    public function firstOrNull(): ?object
+    {
 
-        return \implode(' AND ', $wheres);
+    }
+
+    public function get(): BuildResult
+    {
+
+    }
+
+    public function executeRawQuery(string $sql, array $bindings): iterable
+    {
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute($bindings);
+
+        return $stmt;
+    }
+
+    public function select(array $columns): static
+    {
+        return $this;
+    }
+
+    public function selectRaw(array $columns): static
+    {
+        return $this;
+    }
+
+    public function groupByDesc(string|array $columns): static
+    {
+
+        return $this;
+    }
+
+    public function groupByAsc(string|array $columns): static
+    {
+
+        return $this;
+    }
+
+    public function groupBy(array $columns): static
+    {
+
+        return $this;
+    }
+
+    public function orderBy(string|array $columns): static
+    {
+
+        return $this;
     }
 }

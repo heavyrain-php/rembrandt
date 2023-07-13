@@ -1,0 +1,35 @@
+services:
+  php:
+    build: .
+    volumes:
+      - ./:/opt/app
+    networks:
+      - frontend
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8-debian
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: rembrandt
+      MYSQL_USER: rembrandt
+      MYSQL_PASSWORD: secret
+    command: --default-authentication-plugin=mysql_native_password
+    networks:
+      - frontend
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - 8080:8080
+    environment:
+      ADMINER_DESIGN: nette
+      ADMINER_DEFAULT_SERVER: mysql
+    networks:
+      - frontend
+    depends_on:
+      - mysql
+
+networks:
+  frontend: {}

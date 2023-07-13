@@ -15,6 +15,7 @@ use Rembrandt\PrimaryKey;
 
 /**
  * @psalm-internal \Rembrandt
+ * @template TEntity of object
  */
 class ReflectionEntity
 {
@@ -24,7 +25,7 @@ class ReflectionEntity
 
     /**
      * @param string $name
-     * @psalm-param class-string $name
+     * @psalm-param class-string<TEntity> $name
      */
     public function __construct(
         string $name,

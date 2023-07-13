@@ -9,7 +9,8 @@ declare(strict_types=1);
 namespace Rembrandt\PDO;
 
 use PDO;
-use Rembrandt\BuilderInterface;
+use Rembrandt\QueryBuilderInterface;
+use Rembrandt\Internal\ReflectionEntity;
 use Rembrandt\RembrandtInterface;
 
 /**
@@ -27,11 +28,11 @@ final class Rembrandt implements RembrandtInterface
      * @template TEntity of object
      * @param string $entityName
      * @psalm-param class-string<TEntity> $entityName
-     * @return BuilderInterface
-     * @psalm-return BuilderInterface<TEntity, \Generator>
+     * @return QueryBuilderInterface
+     * @psalm-return QueryBuilderInterface<TEntity, \Generator>
      */
-    public function of(string $entityName): BuilderInterface
+    public function of(string $entityName): QueryBuilderInterface
     {
-        return new PDOBuilder($entityName, $this->pdo);
+        return new PDOBuilder(new ReflectionEntity($entityName), $this->pdo);
     }
 }

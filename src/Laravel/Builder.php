@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace Rembrandt\Laravel;
 
-use Rembrandt\BuilderInterface;
+use Rembrandt\QueryBuilderInterface;
 use Rembrandt\BuildResult;
 use Illuminate\Support\LazyCollection;
 
 /**
  * @template TEntity of object
- * @implements BuilderInterface<TEntity, LazyCollection>
+ * @implements QueryBuilderInterface<TEntity, LazyCollection>
  */
-class Builder implements BuilderInterface
+class Builder implements QueryBuilderInterface
 {
     public function __construct(
 
