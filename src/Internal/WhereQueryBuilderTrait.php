@@ -11,6 +11,7 @@ namespace Rembrandt\Internal;
 use InvalidArgumentException;
 
 /**
+ * @psalm-internal \Rembrandt
  * @implements \Rembrandt\QueryWhereInterface
  */
 trait WhereQueryBuilderTrait
@@ -245,9 +246,13 @@ trait WhereQueryBuilderTrait
      * @return array
      * @psalm-return array{sql: string, bindings: list<int|float|string>}
      */
-    private function buildWhereQuery(): array
+    private function buildWhere(): array
     {
-        $sql = '';
+        if (\count($this->whereList) === 0) {
+            return '';
+        }
+
+        $sql = 'WHERE ';
         $bindings = [];
 
         foreach ($this->whereList as $where) {

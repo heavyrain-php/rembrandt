@@ -8,11 +8,22 @@ declare(strict_types=1);
 
 namespace Rembrandt;
 
+use Rembrandt\Internal\QueryGroupByInterface;
+use Rembrandt\Internal\QueryJoinInterface;
+use Rembrandt\Internal\QueryOrderByInterface;
+use Rembrandt\Internal\QuerySelectInterface;
+use Rembrandt\Internal\QueryWhereInterface;
+
 /**
  * @template TEntity of object
  * @template TCollection of object
  */
-interface QueryBuilderInterface extends QuerySelectInterface, QueryWhereInterface, QueryGroupByInterface, QueryOrderByInterface
+interface QueryBuilderInterface extends
+    QueryGroupByInterface,
+    QueryJoinInterface,
+    QueryOrderByInterface,
+    QuerySelectInterface,
+    QueryWhereInterface
 {
     /**
      * Finds by primary keys
@@ -71,4 +82,17 @@ interface QueryBuilderInterface extends QuerySelectInterface, QueryWhereInterfac
      * @psalm-return iterable<int, \stdClass>
      */
     public function executeRawQuery(string $sql, array $bindings): iterable;
+
+    /**
+     * Executes UNION with multiple builders
+     * @param QueryBuilderInterface|array $builder
+     * @psalm-param QueryBuilderInterface|QueryBuilderInterface[] $builder
+     * @return BuildResult
+     */
+    public function union(QueryBuilderInterface|array $builder): BuildResult;
+
+    /**
+     * @return array{sql: string, bindings: list<int|float|string>}
+     */
+    public function buildRawSqlAndBindings(): array
 }
