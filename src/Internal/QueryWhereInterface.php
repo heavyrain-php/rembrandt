@@ -6,8 +6,11 @@ declare(strict_types=1);
  * @license MIT
  */
 
-namespace Rembrandt;
+namespace Rembrandt\Internal;
 
+/**
+ * @psalm-internal \Rembrandt
+ */
 interface QueryWhereInterface
 {
     public function where(string $column, string $operator, int|float|string $value): static;
